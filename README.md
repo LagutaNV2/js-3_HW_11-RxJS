@@ -1,7 +1,7 @@
 # Домашнее задание к занятию "11. RxJS"
 CI: [![Build status](https://ci.appveyor.com/api/projects/status/f09vkollqnsp4aho?svg=true)](https://ci.appveyor.com/project/LagutaNV2/js-3-hw-11-rxjs)
 
-link:
+link: https://lagutanv2.github.io/js-3_HW_11-RxJS/
 link:
 
 Правила сдачи задания:
