@@ -1,0 +1,45 @@
+image: Ubuntu2204
+stack: node 20
+
+branches:
+  only:
+    - master
+    - main
+
+cache:
+  - frontend/node_modules
+  - backend/node_modules
+
+install:
+  # Установка зависимостей для фронтенда
+  - cd frontend && yarn
+  # Установка зависимостей для бэкенда
+  - cd ../backend && yarn
+
+build_script:
+  # Сборка фронтенда
+  - cd ../frontend && yarn build
+  # Сборка бэкенда (если требуется)
+  - cd ../backend && yarn build
+
+test_script:
+  # Тесты фронтенда
+  # - cd ../frontend && yarn test
+  # Тесты бэкенда
+  # - cd ../backend && yarn test
+
+deploy_script:
+  # Деплой фронтенда
+  - cd ../frontend
+  - git config --global credential.helper store
+  - git config --global user.name AppVeyor
+  - git config --global user.email ci@appveyor.com
+  - echo "https://$GITHUB_TOKEN:x-oauth-basic@github.com" > "$HOME/.git-credentials"
+  - npx gh-pages -d dist -u "appveyor-bot <ci@appveyor>"
+
+  # Пример деплоя бэкенда (добавьте свои команды)
+  # - cd ../backend
+  # - echo "Deploying backend..."
+  # - docker build -t your-dockerhub/backend .
+  # - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  # - docker push your-dockerhub/backend
