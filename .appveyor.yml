@@ -37,9 +37,11 @@ deploy_script:
   - echo "https://$GITHUB_TOKEN:x-oauth-basic@github.com" > "$HOME/.git-credentials"
   - npx gh-pages -d dist -u "appveyor-bot <ci@appveyor>"
 
-  # Пример деплоя бэкенда (добавьте свои команды)
-  # - cd ../backend
-  # - echo "Deploying backend..."
-  # - docker build -t your-dockerhub/backend .
-  # - docker login -u $DOCKER_USER -p $DOCKER_PASS
-  # - docker push your-dockerhub/backend
+  # Деплой бэкенда на Render
+  - cd ../backend
+  - curl -fsSL https://deno.land/x/install/install.sh | sh  # Установка Deno
+  - export DENO_INSTALL="$HOME/.deno"
+  - export PATH="$DENO_INSTALL/bin:$PATH"
+  - deno run -A https://denopkg.com/render-cli/render-cli@0.5.0/deploy.ts  # Установка Render CLI
+  - render deploy --service-name js-3-hw-11-rxjs-polling-backend
+  # - render deploy --service-name js-3-hw-11-rxjs-polling-backend --token $RENDER_API_TOKEN

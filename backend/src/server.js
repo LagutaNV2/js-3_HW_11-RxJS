@@ -1,13 +1,23 @@
-import express from "express";
-import cors from "cors";
-import bodyParser from "body-parser";
-import * as crypto from "crypto";
-import pino from 'pino';
-import pinoPretty from 'pino-pretty';
-import { faker } from '@faker-js/faker';
-import path from 'path';
-import { fileURLToPath } from 'url';
+// import express from "express";
+// import cors from "cors";
+// import bodyParser from "body-parser";
+// import * as crypto from "crypto";
+// import pino from 'pino';
+// import pinoPretty from 'pino-pretty';
+// import { faker } from '@faker-js/faker';
+// import path from 'path';
+// import { fileURLToPath } from 'url';
+"use strict";
 
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const crypto = require('crypto');
+const pino = require('pino');
+const pinoPretty = require('pino-pretty');
+const { faker } = require('@faker-js/faker');
+const path = require('path');
+const { fileURLToPath } = require('url');
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
