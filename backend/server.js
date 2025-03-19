@@ -17,8 +17,8 @@ const pino = require('pino');
 const pinoPretty = require('pino-pretty');
 const { faker } = require('@faker-js/faker');
 const path = require('path');
-const { fileURLToPath } = require('url');
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+// const { fileURLToPath } = require('url');
+// const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 const logger = pino(pinoPretty());
