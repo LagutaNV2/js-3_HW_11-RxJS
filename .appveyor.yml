@@ -7,41 +7,47 @@ branches:
     - main
 
 cache:
-  - frontend/node_modules
-  - backend/node_modules
+  # - frontend/node_modules
+  # - backend/node_modules
+  node_modules
 
 install:
   # Установка зависимостей для фронтенда
-  - cd frontend && yarn
+  - cd frontend
+  - yarn
   # Установка зависимостей для бэкенда
-  - cd ../backend && yarn
+  # - cd ../backend && yarn
+
+build: off  # отключаем встроенную в appveyor систему сборки
 
 build_script:
   # Сборка фронтенда
-  - cd ../frontend && yarn build
+  # - cd ../frontend && yarn build
   # Сборка бэкенда (если требуется)
-  - cd ../backend && yarn build
+  # - cd ../backend && yarn build
+  - yarn build
 
 test_script:
   # Тесты фронтенда
   # - cd ../frontend && yarn test
   # Тесты бэкенда
   # - cd ../backend && yarn test
+  - yarn lint && yarn test
 
-deploy_script:
+deploy_script: # скрипт развёртывания
   # Деплой фронтенда
-  - cd ../frontend
+  # - cd ../frontend    уже не надо, есть выше
   - git config --global credential.helper store
   - git config --global user.name AppVeyor
   - git config --global user.email ci@appveyor.com
   - echo "https://$GITHUB_TOKEN:x-oauth-basic@github.com" > "$HOME/.git-credentials"
   - npx gh-pages -d dist -u "appveyor-bot <ci@appveyor>"
 
-  # Деплой бэкенда на Render
-  - cd ../backend
-  - curl -fsSL https://deno.land/x/install/install.sh | sh  # Установка Deno
-  - export DENO_INSTALL="$HOME/.deno"
-  - export PATH="$DENO_INSTALL/bin:$PATH"
-  - deno run -A https://denopkg.com/render-cli/render-cli@0.5.0/deploy.ts  # Установка Render CLI
-  - render deploy --service-name js-3-hw-11-rxjs-polling-backend
+  # Деплой бэкенда на Render - не умеет!!!
+  # - cd ../backend
+  # - curl -fsSL https://deno.land/x/install/install.sh | sh  # Установка Deno
+  # - export DENO_INSTALL="$HOME/.deno"
+  # - export PATH="$DENO_INSTALL/bin:$PATH"
+  # - deno run -A https://denopkg.com/render-cli/render-cli@0.5.0/deploy.ts  # Установка Render CLI
+  # - render deploy --service-name js-3-hw-11-rxjs-polling-backend
   # - render deploy --service-name js-3-hw-11-rxjs-polling-backend --token $RENDER_API_TOKEN

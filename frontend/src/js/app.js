@@ -6,8 +6,11 @@ const POLLING_INTERVAL = 5000; // 5 секунд
 
 // Инициализация компонентов
 const messageService = new MessageService(
-  "http://localhost:7070/messages/unread",
+  // "http://localhost:7070/messages/unread",
+  "https://js-3-hw-11-rxjs-polling-backend.onrender.com",
 );
+const API_URL = '';
+
 const messageList = new MessageList(
   document.getElementById("message-container"),
 );
